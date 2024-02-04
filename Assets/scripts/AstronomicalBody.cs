@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class AstronomicalBody : MonoBehaviour
 {
-    [SerializeField] private int mass;
-    [SerializeField] private int radius;
-    private float velocity;
+    public float mass;
+    public float radius;
+    [SerializeField] private Vector3 startVelocity;
+    public Vector3 velocity;
     private Rigidbody rb;
 
     //for testing
-    [SerializeField] private AstronomicalBody otherBody;
+    public AstronomicalBody otherBody;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        velocity = startVelocity;
     }
 
     public float CalculateAcceleration()

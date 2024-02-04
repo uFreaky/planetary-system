@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class PhysicalLaw : MonoBehaviour
 {
-    [SerializeField] private float gravitationalConstant = 0.000000000066743f;
+    public static PhysicalLaw instance;
 
-    public float GravitationalConstant()
+    public float gravConst = 0.000000000066743f;
+
+    private void Awake()
     {
-        return gravitationalConstant;
+        instance = this;
     }
 }
