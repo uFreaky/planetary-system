@@ -155,10 +155,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e4680df91c5c24598d643b0f350c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 5.972e+24
-  radius: 6371000
+  mass: 5.971719e+12
+  radius: 637.1
   startVelocity: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
+  isPerfectOrbit: 0
   otherBody: {fileID: 1465306262}
 --- !u!135 &108175302
 SphereCollider:
@@ -232,7 +233,7 @@ Transform:
   m_GameObject: {fileID: 108175300}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalScale: {x: 1274, y: 1274, z: 1274}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -553,9 +554,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mass: 1
-  radius: 1
-  startVelocity: {x: 0, y: 0, z: 3}
+  radius: 100
+  startVelocity: {x: 0, y: 0, z: 1}
   velocity: {x: 0, y: 0, z: 0}
+  isPerfectOrbit: 1
   otherBody: {fileID: 108175301}
 --- !u!135 &1465306263
 SphereCollider:
@@ -628,8 +630,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1465306261}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 40, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalPosition: {x: 0, y: 1000, z: 0}
+  m_LocalScale: {x: 200, y: 200, z: 200}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -680,6 +682,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravConst: 6.6743e-11
+  density: 5513
 --- !u!4 &1737966527
 Transform:
   m_ObjectHideFlags: 0
@@ -707,6 +710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec98be913fb15e04fb8cad2c52390cbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testTime: 1
   currentAstronomicalBodies:
   - {fileID: 1465306262}
   - {fileID: 108175301}

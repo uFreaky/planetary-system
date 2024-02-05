@@ -44,17 +44,19 @@ public class UniverseSimulation : MonoBehaviour
 
             foreach (AstronomicalBody body in GameManager.instance.currentAstronomicalBodies)
             {
-                //nimm bei accel später das vector3.distance sqr von unten anstatt radius sqr
                 float distance = Vector3.Distance(body.otherBody.transform.position, body.transform.position);
-                float acceleration = (PhysicalLaw.instance.gravConst * body.otherBody.mass) / (body.otherBody.radius * body.otherBody.radius);
+                float acceleration = (PhysicalLaw.instance.gravConst * body.otherBody.mass) / (distance * distance);
                 Vector3 direction = (body.otherBody.transform.position - body.transform.position).normalized;
                 body.velocity += (direction * acceleration) / framesPerSecond;
 
+                Debug.Log(body.gameObject.name + ":");
                 Debug.Log("accel: " + (PhysicalLaw.instance.gravConst * body.otherBody.mass) / (body.otherBody.radius * body.otherBody.radius));
 
                 Debug.Log("dist: " + Vector3.Distance(body.otherBody.transform.position, body.transform.position));
                 Debug.Log("dir: " + direction);
-                Debug.Log("velocity: " + (direction * acceleration) / framesPerSecond);
+                Vector3 tempVelo = direction * acceleration;
+                Debug.Log("velocity: " + tempVelo);
+                Debug.Log("velocity schritt: " + body.velocity);
 
                 body.transform.position += body.velocity;
             }
