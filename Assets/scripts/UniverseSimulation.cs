@@ -33,7 +33,7 @@ public class UniverseSimulation : MonoBehaviour
         //Debug.Log((PhysicalLaw.instance.gravConst * 5.972e24f) / (6371000f * 6371000f));
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         timePassed += Time.deltaTime;
 
