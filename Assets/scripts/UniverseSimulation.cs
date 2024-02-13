@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class UniverseSimulation : MonoBehaviour
 {
-    [SerializeField] private int framesPerSecond = 30;
+    private int framesPerSecond;
     private float timePassed;
     private float timeInterval;
 
     private void Start()
     {
         timePassed = 0f;
+        framesPerSecond = GameManager.instance.framesPerSecond;
         timeInterval = 1f / framesPerSecond;
 
         /**

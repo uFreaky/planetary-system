@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private float testTime = 1f;
 
+    public int framesPerSecond = 30;
+
     //temporary for testing, later needs to be filled as you create AstronomicalBody objects in the editor.
     public AstronomicalBody[] currentAstronomicalBodies;
 

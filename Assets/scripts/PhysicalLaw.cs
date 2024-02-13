@@ -18,7 +18,11 @@ public class PhysicalLaw : MonoBehaviour
 
     public float PerfectOrbitInVelocity(float otherMass, float distance)
     {
-        float velocitySqr = gravConst * otherMass * (1f / distance);
-        return Mathf.Sqrt(velocitySqr);
+        float velocitySqrd = gravConst * otherMass * (1f / distance);
+        float velocitySqrdStep = velocitySqrd / GameManager.instance.framesPerSecond;
+        Debug.Log("velo sqrd: " + velocitySqrd);
+        Debug.Log("velo sqrd step: " + velocitySqrdStep);
+        Debug.Log("velo: " + Mathf.Sqrt(velocitySqrdStep));
+        return Mathf.Sqrt(velocitySqrdStep);
     }
 }
