@@ -6,9 +6,9 @@ public class AstronomicalBody : MonoBehaviour
 {
     public float mass;
     public float radius;
-    [SerializeField] private Vector3 startVelocity;
+    public Vector3 startVelocity;
     public Vector3 velocity;
-    private Rigidbody rb;
+    public Rigidbody rb;
 
     [SerializeField] private bool isPerfectOrbit = false;
 
@@ -28,6 +28,8 @@ public class AstronomicalBody : MonoBehaviour
             float distance = Vector3.Distance(otherBody.transform.position, transform.position);
             startVelocity *= PhysicalLaw.instance.PerfectOrbitInVelocity(otherBody.mass, distance);
             velocity = startVelocity;
+
+            rb.velocity = velocity;
         }
         else
         {
@@ -35,7 +37,7 @@ public class AstronomicalBody : MonoBehaviour
         }
     }
 
-    private void SetRadius(float newRadius)
+    public void SetRadius(float newRadius)
     {
         radius = newRadius;
         transform.localScale = 2 * radius * Vector3.one;
@@ -47,10 +49,10 @@ public class AstronomicalBody : MonoBehaviour
     {
         //calculates volume of the sphere depending on the radius
         float volume = (4f/3f) * Mathf.PI * (Mathf.Pow(radius, 3));
-        Debug.Log(volume);
 
         //calculates the mass
         mass = volume * PhysicalLaw.instance.density;
+        rb.mass = mass;
     }
 
     public float CalculateAcceleration()

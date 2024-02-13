@@ -62,4 +62,32 @@ public class UniverseSimulation : MonoBehaviour
             }
         }
     }
+
+    /**
+    private void FixedUpdate()
+    {
+        timePassed += Time.deltaTime;
+
+        //Gets called the number of framesPerSecond times in a second.
+        if (timePassed >= timeInterval)
+        {
+            timePassed -= timeInterval;
+
+            foreach (AstronomicalBody body in GameManager.instance.currentAstronomicalBodies)
+            {
+                float distance = Vector3.Distance(body.otherBody.transform.position, body.transform.position);
+                Vector3 direction = (body.otherBody.transform.position - body.transform.position).normalized;
+                float force = PhysicalLaw.instance.gravConst * ((body.mass * body.otherBody.mass) / Mathf.Pow(distance, 2));
+                Vector3 forceVector = force * direction;
+
+                body.rb.AddForce(forceVector);
+
+                Debug.Log(body.gameObject.name + ":");
+                Debug.Log("dist: " + Vector3.Distance(body.otherBody.transform.position, body.transform.position));
+                Debug.Log("dir: " + direction);
+                Debug.Log("force: " + force);
+                Debug.Log("velo: " + body.rb.velocity);
+            }
+        }
+    }**/
 }
