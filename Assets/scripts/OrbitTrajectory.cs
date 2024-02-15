@@ -72,17 +72,38 @@ public class OrbitTrajectory : MonoBehaviour
 
             foreach (AstronomicalBody body in ghostBodies)
             {
-                float distance = Vector3.Distance(body.otherBody.transform.position, body.transform.position);
-                //grav constant is hardcoded here, change later
-                float acceleration = (0.005f * body.otherBody.mass) / (distance * distance);
-                Vector3 direction = (body.otherBody.transform.position - body.transform.position).normalized;
-                body.velocity += (direction * acceleration) / framesPerSecond;
+                if (step == 0)
+                {
+                    body.startPosition = body.transform.position;
+                }
 
-                LineRenderer lineRenderer = body.GetComponent<LineRenderer>();
-                lineRenderer.SetPosition(step, body.transform.position);
+                foreach (AstronomicalBody otherBody in ghostBodies)
+                {
+                    if (body != otherBody)
+                    {
+                        float distance = Vector3.Distance(otherBody.transform.position, body.transform.position);
+                        //grav constant is hardcoded here, change later
+                        float acceleration = (0.005f * otherBody.mass) / (distance * distance);
+                        Vector3 direction = (otherBody.transform.position - body.transform.position).normalized;
+                        body.velocity += (direction * acceleration) / framesPerSecond;
 
-                //lastPosition = body.transform.position;
-                body.transform.position += body.velocity;
+                        LineRenderer lineRenderer = body.GetComponent<LineRenderer>();
+                        if (body.orbitsAround != null)
+                        {
+                            float orbitsAroundDist = Vector3.Distance(otherBody.transform.position, otherBody.startPosition);
+                            Vector3 orbitsAroundDir = (otherBody.transform.position - otherBody.startPosition).normalized;
+                            Vector3 orbitsAroundDiff = orbitsAroundDist * orbitsAroundDir;
+                            lineRenderer.SetPosition(step, body.transform.position - orbitsAroundDiff);
+                        }
+                        else
+                        {
+                            lineRenderer.SetPosition(step, body.transform.position);
+                        }
+
+                        //lastPosition = body.transform.position;
+                        body.transform.position += body.velocity;
+                    }
+                }
             }
         }
     }

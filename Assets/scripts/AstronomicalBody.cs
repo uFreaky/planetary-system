@@ -12,8 +12,8 @@ public class AstronomicalBody : MonoBehaviour
 
     [SerializeField] private bool isPerfectOrbit = false;
 
-    //for testing
-    public AstronomicalBody otherBody;
+    public AstronomicalBody orbitsAround = null;
+    public Vector3 startPosition;
 
     private void Start()
     {
@@ -25,8 +25,8 @@ public class AstronomicalBody : MonoBehaviour
         //keep in mind perfect orbit might not work with multiple close planets, so use mainly for testing
         if (isPerfectOrbit)
         {
-            float distance = Vector3.Distance(otherBody.transform.position, transform.position);
-            startVelocity *= PhysicalLaw.instance.PerfectOrbitInVelocity(otherBody.mass, distance);
+            float distance = Vector3.Distance(orbitsAround.transform.position, transform.position);
+            startVelocity *= PhysicalLaw.instance.PerfectOrbitInVelocity(orbitsAround.mass, distance);
             velocity = startVelocity;
 
             rb.velocity = velocity;

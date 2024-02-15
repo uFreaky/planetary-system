@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class PlanetarySystem : MonoBehaviour
 {
-    [HideInInspector] public static GameManager instance;
+    [HideInInspector] public static PlanetarySystem instance;
 
     [SerializeField] private float testTime = 1f;
 
