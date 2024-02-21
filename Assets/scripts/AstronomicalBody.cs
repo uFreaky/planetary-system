@@ -6,6 +6,9 @@ public class AstronomicalBody : MonoBehaviour
 {
     public float mass;
     public float radius;
+    public float distance;
+    public Vector3 xDir;
+    public Vector3 yDir;
     public Vector3 startVelocity;
     public Vector3 velocity;
     public Rigidbody rb;

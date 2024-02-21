@@ -12,7 +12,7 @@ public class OrbitTrajectory : MonoBehaviour
 
     private AstronomicalBody[] ghostBodies;
 
-    [SerializeField] private int framesPerSecond = 30;
+    [SerializeField] private float framesPerSecond = 30f;
     private float timePassed;
     private float timeInterval;
 

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class UniverseSimulation : MonoBehaviour
 {
-    private int framesPerSecond;
+    private float framesPerSecond;
     private float timePassed;
     private float timeInterval;
 
@@ -33,8 +33,8 @@ public class UniverseSimulation : MonoBehaviour
                         Vector3 direction = (otherBody.transform.position - body.transform.position).normalized;
                         body.velocity += (direction * acceleration) / framesPerSecond;
 
-                        Debug.Log(body.gameObject.name + ":");
-                        Debug.Log("accel: " + (PhysicalLaw.instance.gravConst * otherBody.mass) / (otherBody.radius * otherBody.radius));
+                        Debug.Log("--- " + body.gameObject.name + ":");
+                        Debug.Log("accel: " + (PhysicalLaw.instance.gravConst * otherBody.mass) / (distance * distance));
 
                         Debug.Log("dist: " + Vector3.Distance(otherBody.transform.position, body.transform.position));
                         Debug.Log("dir: " + direction);
