@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private CharacterController controller;
 
+    [SerializeField] private Transform cam;
+
     //movement speed
     [SerializeField] private float speed = 2f;
     [SerializeField] private float sprintSpeed = 6f;
@@ -82,10 +84,18 @@ public class PlayerMovement : MonoBehaviour
 
         if (direction.magnitude >= 0.1f)
         {
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(transform.rotation.x, angle, transform.rotation.z);
+
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            controller.Move(speed * Time.deltaTime * moveDir.normalized);
+
+            /**
             Vector3 dirNorm = direction.normalized;
-            Vector3 testVector = dirNorm.x * transform.forward + dirNorm.z * transform.right;
+            Vector3 testVector = dirNorm.x * transform.forward + 1f * transform.up + dirNorm.z * transform.right;
             Debug.Log(transform.forward);
-            controller.Move(testVector *  Time.deltaTime);
+            controller.Move(testVector *  Time.deltaTime);**/
         }
     }
 
