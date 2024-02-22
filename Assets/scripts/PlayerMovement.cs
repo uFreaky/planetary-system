@@ -9,13 +9,23 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private CharacterController controller;
 
+    //movement speed
+    [SerializeField] private float speed = 2f;
+    [SerializeField] private float sprintSpeed = 6f;
+
+    //turning
+    [SerializeField] private float turnSmoothTime = 0.1f;
+    private float turnSmoothVelocity;
+
     [SerializeField] private Transform groundChecker;
-    [SerializeField] private float groundDistance = 0.4f;
+    [SerializeField] private float groundDistance = 0.2f;
     [SerializeField] private LayerMask groundMask;
     public bool isGrounded = false;
+    private bool justJumped = false;
 
     private float gravity; //needs to be calculated depending on current planet and how far away you are.
     [SerializeField] private float jumpHeight = 3f;
+    [SerializeField] private float jumpCooldown = 0.5f;
     private Vector3 velocity;
 
     Controls controls;
@@ -34,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
     {
         //test hard coded:
         gravity = -9.81f;
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void OnMovement(InputValue value)
@@ -53,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
 
         isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, groundMask);
 
-        if (isGrounded) //needs to check if on way down or up (newly jumped), otherwise this turns true right after jumping later
+        if (isGrounded && !justJumped)
         {
             velocity = -2f * transform.up;
         }
@@ -70,7 +82,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (direction.magnitude >= 0.1f)
         {
-            controller.Move(direction.normalized * Time.deltaTime);
+            Vector3 dirNorm = direction.normalized;
+            Vector3 testVector = dirNorm.x * transform.forward + dirNorm.z * transform.right;
+            Debug.Log(transform.forward);
+            controller.Move(testVector *  Time.deltaTime);
         }
     }
 
@@ -79,8 +94,18 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Jumped");
         if (isGrounded)
         {
+            StartCoroutine(JustJumped());
             velocity = transform.up * jumpHeight;
         }
+    }
+
+    private IEnumerator JustJumped()
+    {
+        justJumped = true;
+
+        yield return new WaitForSeconds(jumpCooldown);
+
+        justJumped = false;
     }
 
     private void OnEnable()
