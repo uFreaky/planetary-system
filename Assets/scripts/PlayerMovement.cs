@@ -14,10 +14,7 @@ public class PlayerMovement : MonoBehaviour
     //movement speed
     [SerializeField] private float speed = 2f;
     [SerializeField] private float sprintSpeed = 6f;
-
-    //turning
-    [SerializeField] private float turnSmoothTime = 0.1f;
-    private float turnSmoothVelocity;
+    [SerializeField] private float gravRotateSpeed = 40f;
 
     [SerializeField] private Transform groundChecker;
     [SerializeField] private float groundDistance = 0.2f;
@@ -30,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpCooldown = 0.5f;
     private Vector3 velocity;
 
-    Controls controls;
+    private Controls controls;
 
     //input direction
     private Vector3 direction;
@@ -62,8 +59,13 @@ public class PlayerMovement : MonoBehaviour
         //Vector3 direction = (testPlanet.transform.position - transform.position).normalized;
         //transform.rotation = Quaternion.Euler(direction);
         //Debug.Log(Quaternion.Euler(direction));
-        transform.LookAt(testPlanet.position);
-        transform.Rotate(new Vector3(-90f, 0f, 0f));
+        //transform.LookAt(testPlanet.position);
+        //transform.Rotate(new Vector3(-90f, 0f, 0f));
+
+        Vector3 gravUp = (transform.position - testPlanet.position).normalized;
+        Vector3 playerUp = transform.up;
+        Quaternion targetRot = Quaternion.FromToRotation(playerUp, gravUp) * transform.rotation;
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, gravRotateSpeed * Time.deltaTime);
 
         isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, groundMask);
 
@@ -73,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            velocity += gravity * Time.deltaTime * transform.up;
+            velocity += gravity * Time.deltaTime * gravUp;
             controller.Move(velocity * Time.deltaTime);
         }
 
@@ -84,12 +86,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (direction.magnitude >= 0.1f)
         {
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(transform.rotation.x, angle, transform.rotation.z);
-
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            controller.Move(speed * Time.deltaTime * moveDir.normalized);
+            Vector3 moveDir = new Vector3(direction.x, 0f, direction.z);
+            controller.Move(speed * Time.deltaTime * transform.TransformDirection(moveDir));
 
             /**
             Vector3 dirNorm = direction.normalized;
