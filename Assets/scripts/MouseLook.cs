@@ -9,6 +9,7 @@ public class MouseLook : MonoBehaviour
 
     private float mouseX;
     private float mouseY;
+    private Vector2 mouseLookVec;
 
     [SerializeField] private Transform playerTf;
 
@@ -21,16 +22,16 @@ public class MouseLook : MonoBehaviour
 
     private void OnLook(InputValue value)
     {
-        Vector2 lookVector2 = value.Get<Vector2>().normalized;
-        mouseX = lookVector2.x;
-        mouseY = lookVector2.y;
+        mouseLookVec = value.Get<Vector2>().normalized;
+        mouseX = mouseLookVec.x;
+        mouseY = mouseLookVec.y;
 
-        Debug.Log(lookVector2.x + " - " + lookVector2.y);
+        Debug.Log(mouseLookVec.x + " - " + mouseLookVec.y);
     }
 
     private void Update()
     {
-        if (mouseX >= 0.1f || mouseY >= 0.1f)
+        if (mouseLookVec.magnitude >= 0.1f)
         {
             Debug.Log("looking");
 
