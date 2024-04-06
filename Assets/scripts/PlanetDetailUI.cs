@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlanetDetailUI : MonoBehaviour
 {
@@ -10,17 +11,24 @@ public class PlanetDetailUI : MonoBehaviour
 
     [SerializeField] private LayerMask astroBodyLayer;
 
-    [SerializeField] private Transform detailUi;
+    [SerializeField] private RectTransform detailUiRect;
+
+    [SerializeField] private CanvasScaler canvas;
 
     void Update()
     {
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, Mathf.Infinity, astroBodyLayer))
         {
-            detailUi.gameObject.SetActive(true);
+            detailUiRect.gameObject.SetActive(true);
+
+            float multiplier = canvas.referenceResolution.x / Screen.width;
+
+            Vector3 detailScreenPos = cam.WorldToScreenPoint(hit.transform.position);
+            detailUiRect.anchoredPosition = new Vector2(detailScreenPos.x * multiplier, detailScreenPos.y * multiplier);
         }
         else
         {
-            detailUi.gameObject.SetActive(false);
+            detailUiRect.gameObject.SetActive(false);
         }
     }
 }
