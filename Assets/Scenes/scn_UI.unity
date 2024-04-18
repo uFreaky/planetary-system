@@ -616,9 +616,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'speed
-
-'
+  m_text: velocity
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -847,7 +845,7 @@ MonoBehaviour:
   distance: 0
   xDir: {x: 0, y: 0, z: 0}
   yDir: {x: 0, y: 0, z: 0}
-  startVelocity: {x: 0, y: 0, z: 0}
+  startVelocity: {x: 10, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
   rb: {fileID: 883052852}
   isPerfectOrbit: 0
