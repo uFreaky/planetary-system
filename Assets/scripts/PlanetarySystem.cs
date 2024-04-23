@@ -8,8 +8,6 @@ public class PlanetarySystem : MonoBehaviour
 
     public int framesPerSecond = 30;
 
-    public GameObject astroBodyPref;
-
     //temporary for testing, later needs to be filled as you create AstronomicalBody objects in the editor.
     public AstronomicalBody[] currentAstronomicalBodies;
 

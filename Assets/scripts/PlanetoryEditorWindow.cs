@@ -1,4 +1,5 @@
 using Newtonsoft.Json.Bson;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -6,9 +7,15 @@ using UnityEngine;
 
 public class PlanetaryEditorWindow : EditorWindow
 {
-    private bool isSelected = false;
+    private PlanetarySystem currentPlanetarySystem = null;
+    private PlanetarySystem newPlanetarySystem = null;
+
+    private bool isCreateScreen = true;
 
     private List<AstronomicalBody> bodies = new List<AstronomicalBody>();
+
+    private string nameInput = "";
+    private float radiusInput = 500f;
 
     [MenuItem("Window/Planetary System Editor")]
     public static void ShowWindow()
@@ -18,37 +25,83 @@ public class PlanetaryEditorWindow : EditorWindow
 
     private void OnGUI()
     {
-        if (isSelected)
-        {
-            
-        }
-        GUILayout.Label("SYSTEM SELECTED: " + isSelected);
+        BuildUi();
 
-        CreateStartGUI();
-        CreateAstroItems();
+        if (isCreateScreen)
+        {
+            GUILayout.Label("Universe Creator");
+            if (GUILayout.Button("Create New Universe"))
+            {
+                CreateNewUniverse();
+            }
+        }
+        else
+        {
+            foreach (AstronomicalBody body in bodies)
+            {
+                GUILayout.Label(body.name);
+            }
+
+            nameInput = GUILayout.TextField(nameInput);
+            radiusInput = EditorGUILayout.FloatField(radiusInput);
+
+            if (GUILayout.Button("Create Planet"))
+            {
+                CreateAstronomicalBody(nameInput, radiusInput);
+            }
+        }
     }
 
-    private void CreateStartGUI()
+    private void OnSelectionChange()
     {
-        if (GUILayout.Button("CREATE"))
+        Repaint();
+    }
+
+    private void BuildUi()
+    {
+        if (Selection.activeGameObject == null)
         {
-            CreateAstronomicalBody();
+            return;
+        }
+
+        //Debug.Log(Selection.activeGameObject.name);
+
+        newPlanetarySystem = Selection.activeGameObject.GetComponentInParent<PlanetarySystem>();
+        if (newPlanetarySystem != null)
+        {
+            if (ReferenceEquals(currentPlanetarySystem, newPlanetarySystem))
+            {
+                return;
+            }
+            else
+            {
+                currentPlanetarySystem = newPlanetarySystem;
+                isCreateScreen = false;
+            }
+        }
+        else
+        {
+            if (currentPlanetarySystem != null)
+            {
+                currentPlanetarySystem = newPlanetarySystem;
+                isCreateScreen = true;
+            }
         }
     }
 
-    private void CreateAstroItems()
+    private void CreateNewUniverse()
     {
-        foreach (AstronomicalBody body in bodies)
-        {
-            GUILayout.Label(body.gameObject.name);
-        }
+        GameObject universePref = Instantiate((GameObject) Resources.Load("PlanetarySystem/PlanetarySystem"));
     }
 
-    private void CreateAstronomicalBody()
+    private void CreateAstronomicalBody(string name, float radius)
     {
-        GameObject bodyObj = Instantiate((GameObject) Resources.Load("Prefabs/prf_Planet"));
-        bodies.Add(bodyObj.GetComponent<AstronomicalBody>());
-        OnGUI();
+        GameObject bodyObj = Instantiate((GameObject) Resources.Load("PlanetarySystem/prf_Planet"));
+        AstronomicalBody astroBody = bodyObj.GetComponent<AstronomicalBody>();
+        astroBody.name = name;
+        astroBody.radius = radius;
+        bodies.Add(astroBody);
+        Repaint();
         //creates prefab
         //puts in list
         //creates astroitem gui
@@ -56,16 +109,11 @@ public class PlanetaryEditorWindow : EditorWindow
 
     private void LoadCreateScreen()
     {
-
+        
     }
 
     private void LoadEditorScreen()
     {
-
-    }
-
-    private bool IsSelectPlanetory()
-    {
-        return false;
+        
     }
 }
