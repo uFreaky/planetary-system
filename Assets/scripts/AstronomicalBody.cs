@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AstronomicalBody : MonoBehaviour
 {
+    public new string name;
     public float mass;
     public float radius;
     public float distance;
