@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class AstronomicalBody : MonoBehaviour
@@ -24,6 +25,7 @@ public class AstronomicalBody : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         SetRadius(radius);
+        SetMass(radius);
 
         //might be able to set orbit direction here for perfect orbit function too
         //keep in mind perfect orbit might not work with multiple close planets, so use mainly for testing
@@ -45,11 +47,9 @@ public class AstronomicalBody : MonoBehaviour
     {
         radius = newRadius;
         transform.localScale = 2 * radius * Vector3.one;
-
-        SetMass(newRadius);
     }
 
-    private void SetMass(float radius)
+    public void SetMass(float radius)
     {
         //calculates volume of the sphere depending on the radius
         float volume = (4f/3f) * Mathf.PI * (Mathf.Pow(radius, 3));

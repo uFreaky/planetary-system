@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class OrbitTrajectory : MonoBehaviour
 {
     [SerializeField] private int stepsToDraw = 1000;
@@ -29,16 +30,24 @@ public class OrbitTrajectory : MonoBehaviour
         DeleteGhostBodies();
     }
 
-    private void OnDrawGizmos()
+    private void Update()
     {
-        if (showOrbits == false || isDrawn == true)
+        if (!Application.isPlaying || showOrbits)
         {
-            return;
+            DrawTrajectories();
         }
+    }
 
+    private void DrawTrajectories()
+    {
         DeleteGhostBodies();
 
-        AstronomicalBody[] bodies = FindObjectsOfType<AstronomicalBody>();
+        AstronomicalBody[] bodies = new AstronomicalBody[transform.childCount];
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            bodies[i] = transform.GetChild(i).GetComponent<AstronomicalBody>();
+        }
+
         ghostBodies = new AstronomicalBody[bodies.Length];
 
         for (int i = 0; i < bodies.Length; i++)
@@ -55,13 +64,11 @@ public class OrbitTrajectory : MonoBehaviour
 
         for (int i = 0; i < stepsToDraw; i++)
         {
-            SimulateAndDrawGizmos(i);
+            SimulateAndDrawLine(i);
         }
-
-        isDrawn = true;
     }
 
-    private void SimulateAndDrawGizmos(int step)
+    private void SimulateAndDrawLine(int step)
     {
         timePassed += Time.deltaTime;
 
