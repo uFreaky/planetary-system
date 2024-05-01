@@ -10,7 +10,10 @@ public class PlanetaryEditorWindow : EditorWindow
     private PlanetarySystem currentPlanetarySystem = null;
     private PlanetarySystem newPlanetarySystem = null;
 
+    private AstronomicalBody currentGhostBody = null;
+
     private bool isCreateScreen = true;
+    private bool isCreatingAstro = false;
 
     private string nameInput = "";
     private float radiusInput = 500f;
@@ -46,26 +49,51 @@ public class PlanetaryEditorWindow : EditorWindow
                 GUILayout.Label(bodies[i]);
             }
 
-            nameInput = GUILayout.TextField(nameInput);
-            radiusInput = EditorGUILayout.FloatField(radiusInput);
-
-            GUILayout.BeginHorizontal();
-            xVelocityInput = EditorGUILayout.FloatField(xVelocityInput);
-            yVelocityInput = EditorGUILayout.FloatField(yVelocityInput);
-            zVelocityInput = EditorGUILayout.FloatField(zVelocityInput);
-            GUILayout.EndHorizontal();
-
-            orbitsAroundInput = EditorGUI.Popup(
-                new Rect(0, 120, position.width, 20),
-                "Orbits Around:",
-                orbitsAroundInput,
-                bodies);
-
-            EditorGUILayout.Space(20f);
-
-            if (GUILayout.Button("Create Planet"))
+            if (isCreatingAstro)
             {
-                CreateAstronomicalBody(nameInput, radiusInput);
+                nameInput = GUILayout.TextField(nameInput);
+                radiusInput = EditorGUILayout.FloatField(radiusInput);
+
+                GUILayout.BeginHorizontal();
+                xVelocityInput = EditorGUILayout.FloatField(xVelocityInput);
+                yVelocityInput = EditorGUILayout.FloatField(yVelocityInput);
+                zVelocityInput = EditorGUILayout.FloatField(zVelocityInput);
+                GUILayout.EndHorizontal();
+
+                orbitsAroundInput = EditorGUI.Popup(
+                    new Rect(0, 120, position.width, 20),
+                    "Orbits Around:",
+                    orbitsAroundInput,
+                    bodies);
+
+                EditorGUILayout.Space(20f);
+
+                GUILayout.BeginHorizontal();
+                if (GUILayout.Button("Cancel"))
+                {
+                    //zerstört aktuellen ghost body
+                    DestroyImmediate(currentGhostBody.gameObject);
+                    currentGhostBody = null;
+
+                    isCreatingAstro = false;
+                    Repaint();
+                }
+                if (GUILayout.Button("Create Body"))
+                {
+                    CreateAstronomicalBody(nameInput, radiusInput);
+                }
+                GUILayout.EndHorizontal();
+
+                UpdateGhostStats();
+            }
+            else
+            {
+                if (GUILayout.Button("Create New Body"))
+                {
+                    CreateGhostBody();
+                    isCreatingAstro = true;
+                    Repaint();
+                }
             }
         }
     }
@@ -110,34 +138,63 @@ public class PlanetaryEditorWindow : EditorWindow
     private void CreateNewUniverse()
     {
         GameObject universePref = Instantiate((GameObject) Resources.Load("PlanetarySystem/PlanetarySystem"));
+        Selection.activeGameObject = universePref;
     }
 
     private void CreateAstronomicalBody(string name, float radius)
     {
         if (IsSameName(name))
         {
-            Debug.LogError("Planet name is already in use. Please choose a different name");
+            Debug.LogError("Planet name is already in use. Please choose a different name.");
             return;
         }
 
-        GameObject bodyObj = Instantiate((GameObject) Resources.Load("PlanetarySystem/prf_Planet"));
+        UpdateGhostStats();
+        currentGhostBody.gameObject.GetComponent<Renderer>().sharedMaterial.SetColor("_Color", Color.white);
+        currentGhostBody.gameObject.name = name;
+
+        currentGhostBody = null;
+
+        isCreatingAstro = false;
+        Repaint();
+    }
+
+    private void CreateGhostBody()
+    {
+        GameObject bodyObj = Instantiate((GameObject)Resources.Load("PlanetarySystem/prf_Planet"));
+        bodyObj.GetComponent<Renderer>().sharedMaterial.SetColor("_Color", Color.red);
         bodyObj.transform.parent = currentPlanetarySystem.transform;
         AstronomicalBody astroBody = bodyObj.GetComponent<AstronomicalBody>();
-        astroBody.name = name;
-        bodyObj.name = name;
-        astroBody.SetRadius(radius);
-        astroBody.mass = SetMass(radius);
+        currentGhostBody = astroBody;
+        astroBody.name = "New Planet";
+        bodyObj.name = "New Planet";
+        astroBody.SetRadius(radiusInput);
+        astroBody.mass = SetMass(radiusInput);
 
-        astroBody.startVelocity = new Vector3 (xVelocityInput, yVelocityInput, zVelocityInput);
+        astroBody.startVelocity = new Vector3(xVelocityInput, yVelocityInput, zVelocityInput);
 
         astroBody.orbitsAround = currentPlanetarySystem.transform.GetChild(orbitsAroundInput).GetComponent<AstronomicalBody>();
 
         Repaint();
 
         Selection.activeGameObject = bodyObj;
-        //creates prefab
-        //puts in list
-        //creates astroitem gui
+    }
+
+    private void UpdateGhostStats()
+    {
+        //falls zb ghost body gelöscht wird und man landet hier drin ohne dass man ein currentghostbody hat, wir creatingastro window geschlossen 
+        if (currentGhostBody == null)
+        {
+            isCreatingAstro = false;
+            Repaint();
+            return;
+        }
+
+        currentGhostBody.name = nameInput;
+        currentGhostBody.SetRadius(radiusInput);
+        currentGhostBody.mass = SetMass(radiusInput);
+        currentGhostBody.startVelocity = new Vector3(xVelocityInput, yVelocityInput, zVelocityInput);
+        currentGhostBody.orbitsAround = currentPlanetarySystem.transform.GetChild(orbitsAroundInput).GetComponent<AstronomicalBody>();
     }
 
     private bool IsSameName(string name)
