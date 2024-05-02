@@ -19,9 +19,6 @@ public class OrbitTrajectory : MonoBehaviour
 
     [SerializeField] private Transform ghostBodiesParent;
 
-    //THIS BOOL IS TEMP!!! later when anything in editor window changes that also changes the orbits, the SimulateAndDrawGizmos method should be called with that and prolly not in ondrawgizmos. 
-    [SerializeField] private bool isDrawn = false;
-
     private void Start()
     {
         timePassed = 0f;
@@ -32,7 +29,7 @@ public class OrbitTrajectory : MonoBehaviour
 
     private void Update()
     {
-        if (!Application.isPlaying || showOrbits)
+        if (!Application.isPlaying && showOrbits)
         {
             DrawTrajectories();
         }
