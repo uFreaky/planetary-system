@@ -113,8 +113,8 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _HorizonHeight: 4.25
-    - _HorizonReach: 2.73
+    - _HorizonHeight: 1.7
+    - _HorizonReach: 0.86
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -133,13 +133,13 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _BotColor: {r: 0.41568628, g: 0.050980374, b: 0.5137254, a: 1}
+    - _BotColor: {r: 1, g: 0.43137255, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MidColor2: {r: 0.41568628, g: 0.050980374, b: 0.5137254, a: 1}
-    - _MidColorSun: {r: 1, g: 0.39462668, b: 0, a: 1}
+    - _MidColor2: {r: 0, g: 0.8105297, b: 1, a: 1}
+    - _MidColorSun: {r: 1, g: 0.43189976, b: 0, a: 1}
     - _MidColorSun2: {r: 1, g: 0, b: 0.31488848, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _StarTilling: {r: 1, g: 1, b: 0, a: 0}
-    - _TopColor: {r: 0.41568628, g: 0.050980374, b: 0.5137254, a: 1}
+    - _TopColor: {r: 0, g: 0.7329507, b: 1, a: 1}
   m_BuildTextureStacks: []
