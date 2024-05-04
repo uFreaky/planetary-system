@@ -1,7 +1,3 @@
-using Newtonsoft.Json.Bson;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -22,7 +18,7 @@ public class PlanetaryEditorWindow : EditorWindow
     private float zVelocityInput = 0f;
     private int orbitsAroundInput = 0;
 
-    [MenuItem("Window/Planetary System Editor")]
+    [MenuItem("Window/Atilla Binal/Planetary System Editor")]
     public static void ShowWindow()
     {
         GetWindow<PlanetaryEditorWindow>("Planetary System Editor");
