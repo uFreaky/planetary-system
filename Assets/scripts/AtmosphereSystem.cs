@@ -12,7 +12,7 @@ public class AtmosphereSystem : MonoBehaviour
 
     [SerializeField] private Transform player;
     [SerializeField] private Transform sun;
-    private Transform cam;
+    [SerializeField] private Transform cam;
     [SerializeField] private float sunUpAngle = 118f;
     [SerializeField] private float sunDownAngle = 61f;
 
@@ -50,7 +50,7 @@ public class AtmosphereSystem : MonoBehaviour
     private void Start()
     {
         skyboxMat = RenderSettings.skybox;
-        cam = Camera.main.transform;
+        //cam = Camera.main.transform;
 
         //test
         //SunState = 0.83f;
