@@ -12,6 +12,7 @@ public class AtmosphereSystem : MonoBehaviour
 
     [SerializeField] private Transform player;
     [SerializeField] private Transform sun;
+    private Transform cam;
     [SerializeField] private float sunUpAngle = 118f;
     [SerializeField] private float sunDownAngle = 61f;
 
@@ -49,6 +50,7 @@ public class AtmosphereSystem : MonoBehaviour
     private void Start()
     {
         skyboxMat = RenderSettings.skybox;
+        cam = Camera.main.transform;
 
         //test
         //SunState = 0.83f;
@@ -56,6 +58,12 @@ public class AtmosphereSystem : MonoBehaviour
         StartCoroutine(UpdateHorizonState());
 
         //StartCoroutine(ChangeSomeValue(0f, 1f, 60f));
+    }
+
+    private void Update()
+    {
+        skyboxMat.SetFloat("_xAxisOffset", -cam.localEulerAngles.x);
+        skyboxMat.SetFloat("_yAxisOffset", -cam.localEulerAngles.y);
     }
 
     private IEnumerator UpdateHorizonState()
@@ -68,6 +76,7 @@ public class AtmosphereSystem : MonoBehaviour
     private void SetHorizonValues()
     {
         UpdateSunState();
+        UpdateSunOffset();
 
         if (sunState < 0.17f)
         {
@@ -125,6 +134,32 @@ public class AtmosphereSystem : MonoBehaviour
         Vector3 sunDir = sun.position - player.position;
         float sunAngle = Vector3.Angle(sunDir, -player.up);
         SunState = Mathf.InverseLerp(sunDownAngle, sunUpAngle, sunAngle);
+    }
+
+    private void UpdateSunOffset()
+    {
+        Vector3 sunDir = sun.position - player.position;
+        //float sunAngle = Vector3.Angle(sunDir, universe.forward);
+        float sunAngle = Vector3.SignedAngle(sunDir, -transform.forward, transform.up);
+
+        Debug.Log("SUNANGLE: " + sunAngle + " : " + LeftRightCheck(-transform.forward, sunDir, transform.right));
+
+        skyboxMat.SetFloat("_sunOffset", sunAngle * LeftRightCheck(-transform.forward, sunDir, transform.right));
+    }
+
+    private float LeftRightCheck(Vector3 fwd, Vector3 targetDir, Vector3 up)
+    {
+        Vector3 perp = Vector3.Cross(fwd, targetDir);
+        float dir = Vector3.Dot(perp, up);
+
+        if (dir > 0f)
+        {
+            return 1f;
+        }
+        else
+        {
+            return -1f;
+        }
     }
 
     //test function to slowly lerp from one value to another, can be deleted later on
