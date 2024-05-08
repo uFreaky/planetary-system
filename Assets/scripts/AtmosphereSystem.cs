@@ -15,6 +15,9 @@ public class AtmosphereSystem : MonoBehaviour
     [SerializeField] private Transform cam;
     [SerializeField] private float sunUpAngle = 118f;
     [SerializeField] private float sunDownAngle = 61f;
+    [SerializeField] private Vector3 skyboxSunDir = new(-1f, 0f, 0f);
+    [SerializeField] private Vector3 leftRightDir = new(0f, 0f, -1f);
+    [SerializeField] private Vector3 worldUpDir = new(0f, 1f, 0f);
 
     private Material skyboxMat;
     [SerializeField] private Material starMat;
@@ -58,12 +61,14 @@ public class AtmosphereSystem : MonoBehaviour
         StartCoroutine(UpdateHorizonState());
 
         //StartCoroutine(ChangeSomeValue(0f, 1f, 60f));
+        Debug.Log(transform.up);
     }
 
     private void Update()
     {
         skyboxMat.SetFloat("_xAxisOffset", -cam.localEulerAngles.x);
-        skyboxMat.SetFloat("_yAxisOffset", -cam.localEulerAngles.y);
+        //skyboxMat.SetFloat("_yAxisOffset", -cam.localEulerAngles.y);
+        UpdateSunOffset2();
     }
 
     private IEnumerator UpdateHorizonState()
@@ -76,7 +81,6 @@ public class AtmosphereSystem : MonoBehaviour
     private void SetHorizonValues()
     {
         UpdateSunState();
-        UpdateSunOffset();
 
         if (sunState < 0.17f)
         {
@@ -84,6 +88,7 @@ public class AtmosphereSystem : MonoBehaviour
             skyboxMat.SetFloat("_HorizonHeight", Mathf.Lerp(heightState1, heightState2, stateStrength));
             skyboxMat.SetFloat("_HorizonReach", Mathf.Lerp(reachState1, reachState2, stateStrength));
             skyboxMat.SetColor("_MidColorSun", Color.Lerp(sunColorSate1, sunColorSate2, stateStrength));
+            skyboxMat.SetColor("_BotColor", Color.Lerp(topColorState1, sunColorSate6, stateStrength));
             starMat.SetFloat("_Opacity", Mathf.Abs(sunState * 2f - 1f));
         }
         else if (sunState < 0.33f)
@@ -92,6 +97,7 @@ public class AtmosphereSystem : MonoBehaviour
             skyboxMat.SetFloat("_HorizonHeight", Mathf.Lerp(heightState2, heightState3, stateStrength));
             skyboxMat.SetFloat("_HorizonReach", Mathf.Lerp(reachState2, reachState3, stateStrength));
             skyboxMat.SetColor("_MidColorSun", Color.Lerp(sunColorSate2, sunColorSate3, stateStrength));
+            skyboxMat.SetColor("_BotColor", sunColorSate6);
             starMat.SetFloat("_Opacity", Mathf.Abs(sunState * 2f - 1f));
         }
         else if (sunState < 0.5f)
@@ -100,6 +106,7 @@ public class AtmosphereSystem : MonoBehaviour
             skyboxMat.SetFloat("_HorizonHeight", Mathf.Lerp(heightState3, heightState4, stateStrength));
             skyboxMat.SetFloat("_HorizonReach", Mathf.Lerp(reachState3, reachState4, stateStrength));
             skyboxMat.SetColor("_MidColorSun", Color.Lerp(sunColorSate3, sunColorSate4, stateStrength));
+            skyboxMat.SetColor("_BotColor", sunColorSate6);
             starMat.SetFloat("_Opacity", Mathf.Abs(sunState * 2f -1f));
         }
         else if (sunState < 0.67f)
@@ -108,6 +115,7 @@ public class AtmosphereSystem : MonoBehaviour
             skyboxMat.SetFloat("_HorizonHeight", Mathf.Lerp(heightState4, heightState5, stateStrength));
             skyboxMat.SetFloat("_HorizonReach", Mathf.Lerp(reachState4, reachState5, stateStrength));
             skyboxMat.SetColor("_MidColorSun", Color.Lerp(sunColorSate4, sunColorSate5, stateStrength));
+            skyboxMat.SetColor("_BotColor", sunColorSate6);
         }
         else if (sunState < 0.83f)
         {
@@ -115,6 +123,7 @@ public class AtmosphereSystem : MonoBehaviour
             skyboxMat.SetFloat("_HorizonHeight", Mathf.Lerp(heightState5, heightState6, stateStrength));
             skyboxMat.SetFloat("_HorizonReach", Mathf.Lerp(reachState5, reachState6, stateStrength));
             skyboxMat.SetColor("_MidColorSun", Color.Lerp(sunColorSate5, sunColorSate6, stateStrength));
+            skyboxMat.SetColor("_BotColor", sunColorSate6);
         }
         else
         {
@@ -139,14 +148,34 @@ public class AtmosphereSystem : MonoBehaviour
     private void UpdateSunOffset()
     {
         Vector3 sunDir = sun.position - player.position;
+        sunDir.x = 0f;
         //float sunAngle = Vector3.Angle(sunDir, universe.forward);
-        float sunAngle = Vector3.SignedAngle(sunDir, -transform.forward, transform.up);
+        //check later if cam.parent.forward is still correct way to do this
+        float sunAngle = Vector3.SignedAngle(sunDir, cam.parent.forward, player.up);
 
-        Debug.Log("SUNANGLE: " + sunAngle + " : " + LeftRightCheck(-transform.forward, sunDir, transform.right));
+        Debug.Log("SUNANGLE: " + sunAngle + " : " + LeftRightCheck(player.forward, sunDir, player.up));
+        Debug.Log("SunDir: " + sunDir);
 
-        skyboxMat.SetFloat("_sunOffset", sunAngle * LeftRightCheck(-transform.forward, sunDir, transform.right));
+        skyboxMat.SetFloat("_sunOffset", -sunAngle + 90f);
     }
 
+    private void UpdateSunOffset2()
+    {
+        Vector3 sunDir = sun.position - player.position;
+
+        Vector3 projectionSunDir = Vector3.ProjectOnPlane(sunDir, player.up);
+
+        //float sunAngle = Vector3.Angle(sunDir, universe.forward);
+        //check later if cam.parent.forward is still correct way to do this
+        float sunAngle = Vector3.SignedAngle(projectionSunDir, cam.parent.forward, player.up);
+
+        Debug.Log("SUNANGLE: " + sunAngle + " : " + LeftRightCheck(player.forward, sunDir, player.up));
+        Debug.Log("SunDir: " + projectionSunDir);
+
+        skyboxMat.SetFloat("_sunOffset", -sunAngle + 90f);
+    }
+
+    //deprecated?
     private float LeftRightCheck(Vector3 fwd, Vector3 targetDir, Vector3 up)
     {
         Vector3 perp = Vector3.Cross(fwd, targetDir);
