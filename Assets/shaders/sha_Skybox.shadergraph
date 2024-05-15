@@ -4,9 +4,6 @@
     "m_ObjectId": "54916ddb668f40ffa086c0210c9a2e73",
     "m_Properties": [
         {
-            "m_Id": "1a302ab51a6a44f79f8bd22e176775f7"
-        },
-        {
             "m_Id": "1e19bb65996848798857bb1be926bac8"
         },
         {
@@ -711,34 +708,6 @@
 }
 
 {
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
-    "m_ObjectId": "1a302ab51a6a44f79f8bd22e176775f7",
-    "m_Guid": {
-        "m_GuidSerialized": "6cb4f225-b99b-484e-959c-f527d138e27e"
-    },
-    "m_Name": "SkyStrength",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "SkyStrength",
-    "m_DefaultReferenceName": "_SkyStrength",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_DismissedVersion": 0,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": 0.0,
-    "m_FloatType": 0,
-    "m_RangeValues": {
-        "x": 0.0,
-        "y": 1.0
-    }
-}
-
-{
     "m_SGVersion": 3,
     "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
     "m_ObjectId": "1e19bb65996848798857bb1be926bac8",
@@ -1182,9 +1151,6 @@
     "m_ObjectId": "5b8586e2b32e4a3e9ed82bc11931f35d",
     "m_Name": "",
     "m_ChildObjectList": [
-        {
-            "m_Id": "1a302ab51a6a44f79f8bd22e176775f7"
-        },
         {
             "m_Id": "1e19bb65996848798857bb1be926bac8"
         },

@@ -131,8 +131,8 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _sunOffset: 126.91849
-    - _xAxisOffset: -282.7
+    - _sunOffset: 59.25932
+    - _xAxisOffset: 0
     - _yAxisOffset: -347.09915
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}

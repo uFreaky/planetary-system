@@ -1,3 +1,4 @@
+using System.Diagnostics.Tracing;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class PlanetaryEditorWindow : EditorWindow
     private PlanetarySystem newPlanetarySystem = null;
 
     private AstronomicalBody currentGhostBody = null;
+    private string[] bodyNames = null;
 
     private bool isCreateScreen = true;
     private bool isCreatingAstro = false;
@@ -38,11 +40,11 @@ public class PlanetaryEditorWindow : EditorWindow
         }
         else
         {
-            string[] bodies = new string[currentPlanetarySystem.transform.childCount];
-            for (int i = 0; i < bodies.Length; i++)
+            bodyNames = new string[currentPlanetarySystem.transform.childCount];
+            for (int i = 0; i < bodyNames.Length; i++)
             {
-                bodies[i] = currentPlanetarySystem.transform.GetChild(i).GetComponent<AstronomicalBody>().name;
-                GUILayout.Label(bodies[i]);
+                bodyNames[i] = currentPlanetarySystem.transform.GetChild(i).GetComponent<AstronomicalBody>().name;
+                GUILayout.Label(bodyNames[i]);
             }
 
             if (isCreatingAstro)
@@ -56,13 +58,20 @@ public class PlanetaryEditorWindow : EditorWindow
                 zVelocityInput = EditorGUILayout.FloatField(zVelocityInput);
                 GUILayout.EndHorizontal();
 
+                //Stellt das astronomische Objekt welches gerade erstellt wird auf "None"
+                bodyNames[bodyNames.Length - 1] = "None";
+                orbitsAroundInput = EditorGUILayout.Popup("Orbits Around:", orbitsAroundInput, bodyNames);
+
+                /**
                 orbitsAroundInput = EditorGUI.Popup(
                     new Rect(0, 120, position.width, 20),
                     "Orbits Around:",
                     orbitsAroundInput,
-                    bodies);
+                    bodies);*/
 
-                EditorGUILayout.Space(20f);
+                //EditorGUILayout.Space(20f);
+
+                UpdateGhostStats();
 
                 GUILayout.BeginHorizontal();
                 if (GUILayout.Button("Cancel"))
@@ -80,7 +89,7 @@ public class PlanetaryEditorWindow : EditorWindow
                 }
                 GUILayout.EndHorizontal();
 
-                UpdateGhostStats();
+                //UpdateGhostStats();
             }
             else
             {
@@ -165,11 +174,11 @@ public class PlanetaryEditorWindow : EditorWindow
         astroBody.name = "New Planet";
         bodyObj.name = "New Planet";
         astroBody.SetRadius(radiusInput);
-        astroBody.mass = SetMass(radiusInput);
+        astroBody.SetMass(radiusInput, currentPlanetarySystem.GetComponent<PhysicalLaw>().density);
 
         astroBody.startVelocity = new Vector3(xVelocityInput, yVelocityInput, zVelocityInput);
 
-        astroBody.orbitsAround = currentPlanetarySystem.transform.GetChild(orbitsAroundInput).GetComponent<AstronomicalBody>();
+        //astroBody.orbitsAround = currentPlanetarySystem.transform.GetChild(orbitsAroundInput).GetComponent<AstronomicalBody>();
 
         Repaint();
 
@@ -188,9 +197,17 @@ public class PlanetaryEditorWindow : EditorWindow
 
         currentGhostBody.name = nameInput;
         currentGhostBody.SetRadius(radiusInput);
-        currentGhostBody.mass = SetMass(radiusInput);
+        currentGhostBody.SetMass(radiusInput, currentPlanetarySystem.GetComponent<PhysicalLaw>().density);
         currentGhostBody.startVelocity = new Vector3(xVelocityInput, yVelocityInput, zVelocityInput);
-        currentGhostBody.orbitsAround = currentPlanetarySystem.transform.GetChild(orbitsAroundInput).GetComponent<AstronomicalBody>();
+        Debug.Log(orbitsAroundInput + " : " + (bodyNames.Length - 1));
+        if (!(orbitsAroundInput == bodyNames.Length - 1))
+        {
+            currentGhostBody.orbitsAround = currentPlanetarySystem.transform.GetChild(orbitsAroundInput).GetComponent<AstronomicalBody>();
+        }
+        else
+        {
+            currentGhostBody.orbitsAround = null;
+        }
     }
 
     private bool IsSameName(string name)

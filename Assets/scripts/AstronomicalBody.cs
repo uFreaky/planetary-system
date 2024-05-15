@@ -8,9 +8,9 @@ public class AstronomicalBody : MonoBehaviour
     public new string name;
     public float mass;
     public float radius;
-    public float distance;
-    public Vector3 xDir;
-    public Vector3 yDir;
+    public float distance;//delete
+    public Vector3 xDir;//delete
+    public Vector3 yDir;//delete
     public Vector3 startVelocity;
     public Vector3 velocity;
     public Rigidbody rb;
@@ -25,7 +25,7 @@ public class AstronomicalBody : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         SetRadius(radius);
-        SetMass(radius);
+        SetMass(radius, PhysicalLaw.instance.density);
 
         //might be able to set orbit direction here for perfect orbit function too
         //keep in mind perfect orbit might not work with multiple close planets, so use mainly for testing
@@ -49,13 +49,13 @@ public class AstronomicalBody : MonoBehaviour
         transform.localScale = 2 * radius * Vector3.one;
     }
 
-    public void SetMass(float radius)
+    public void SetMass(float radius, float density)
     {
         //calculates volume of the sphere depending on the radius
         float volume = (4f/3f) * Mathf.PI * (Mathf.Pow(radius, 3));
 
         //calculates the mass
-        mass = volume * PhysicalLaw.instance.density;
+        mass = volume * density;
         rb.mass = mass;
     }
 

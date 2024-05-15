@@ -8,10 +8,10 @@ public class StarCreatorWindow : EditorWindow
         get { return density; }
         set { density = Mathf.Clamp(value, 0f, 1f); }
     }
-    [Range(0f, 1f)] private float density;
-    private float size = 1f;
+    [Range(0f, 1f)] private float density = 0.5f;
+    private float size = 0.5f;
     private float sizeRange = 0.4f;
-    private float distance = 40f;
+    private float distance = 50f;
 
     private int maxStarCount = 10000;
 
