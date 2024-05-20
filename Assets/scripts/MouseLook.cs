@@ -9,9 +9,11 @@ public class MouseLook : MonoBehaviour
 
     private float mouseX;
     private float mouseY;
+    private float xRotation = 0f;
     private Vector2 mouseLookVec;
 
-    [SerializeField] private Transform playerTf;
+    [SerializeField] private Transform cameraY;
+    [SerializeField] private Transform cam;
 
     private Controls controls;
 
@@ -25,17 +27,19 @@ public class MouseLook : MonoBehaviour
         mouseLookVec = value.Get<Vector2>().normalized;
         mouseX = mouseLookVec.x;
         mouseY = mouseLookVec.y;
-
-        Debug.Log(mouseLookVec.x + " - " + mouseLookVec.y);
     }
 
     private void Update()
     {
         if (mouseLookVec.magnitude >= 0.1f)
         {
-            Debug.Log("looking");
+            Debug.Log("looking: " + transform.TransformDirection(transform.up) * (mouseX * mouseSens * Time.deltaTime));
 
-            playerTf.Rotate(transform.TransformDirection(transform.up) * (mouseX * mouseSens * Time.deltaTime));
+            cameraY.Rotate(new Vector3(0f, 1f, 0f) * (mouseX * mouseSens * Time.deltaTime), Space.Self);
+            xRotation -= mouseY * mouseSens * Time.deltaTime;
+            xRotation = Mathf.Clamp(xRotation, -85f, 85f);
+
+            cam.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         }
     }
 

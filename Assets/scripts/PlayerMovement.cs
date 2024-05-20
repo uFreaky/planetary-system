@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CharacterController controller;
 
     [SerializeField] private Transform cam;
+    [SerializeField] private Transform cameraY;
 
     //movement speed
     [SerializeField] private float speed = 2f;
@@ -86,8 +87,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (direction.magnitude >= 0.1f)
         {
+            //float targetAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg + cameraY.eulerAngles.y;
             Vector3 moveDir = new Vector3(direction.x, 0f, direction.z);
-            controller.Move(speed * Time.deltaTime * transform.TransformDirection(moveDir));
+            controller.Move(speed * Time.deltaTime * cameraY.TransformDirection(moveDir));
 
             /**
             Vector3 dirNorm = direction.normalized;
