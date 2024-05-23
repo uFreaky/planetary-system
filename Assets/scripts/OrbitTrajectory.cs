@@ -49,12 +49,13 @@ public class OrbitTrajectory : MonoBehaviour
 
         for (int i = 0; i < bodies.Length; i++)
         {
-            ghostBodies[i] = Instantiate(bodies[i], ghostBodiesParent, true);
-            ghostBodies[i].GetComponent<Renderer>().enabled = false;
+            AstronomicalBody ghostBody = Instantiate(bodies[i], ghostBodiesParent, true);
+            ghostBodies[i] = ghostBody;
+            ghostBody.GetComponent<Renderer>().enabled = false;
             //ghostBodies[i].SetRadius(ghostBodies[i].radius);
-            ghostBodies[i].velocity = ghostBodies[i].startVelocity;
+            ghostBody.velocity = ghostBodies[i].startVelocity;
 
-            LineRenderer lineRenderer = ghostBodies[i].GetComponent<LineRenderer>();
+            LineRenderer lineRenderer = ghostBody.GetComponent<LineRenderer>();
             lineRenderer.enabled = true;
             lineRenderer.positionCount = stepsToDraw;
         }

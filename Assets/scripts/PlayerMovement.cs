@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Transform testPlanet; //hardcoded
+    private AstronomicalBody currentPlanet;
 
     [SerializeField] private CharacterController controller;
 
@@ -46,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
         gravity = -9.81f;
 
         Cursor.lockState = CursorLockMode.Locked;
+
+        currentPlanet = testPlanet.GetComponent<AstronomicalBody>();
     }
 
     private void OnMovement(InputValue value)
@@ -97,6 +100,11 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log(transform.forward);
             controller.Move(testVector *  Time.deltaTime);**/
         }
+    }
+
+    private void FixedUpdate()
+    {
+        controller.Move(currentPlanet.velocity);
     }
 
     private void Jump()
