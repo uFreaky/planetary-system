@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform testPlanet; //hardcoded
     private AstronomicalBody currentPlanet;
 
-    [SerializeField] private CharacterController controller;
+    [SerializeField] private Rigidbody rb;
 
     [SerializeField] private Transform cam;
     [SerializeField] private Transform cameraY;
@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpCooldown = 0.5f;
     private Vector3 velocity;
 
+    [SerializeField] private Transform spaceship;
+
     private Controls controls;
 
     //input direction
@@ -39,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
         controls = new Controls();
 
         controls.Player.Jump.performed += ctx => Jump();
+        controls.Player.EnterShip.performed += ctx => EnterShip();
     }
 
     private void Start()
@@ -49,6 +52,9 @@ public class PlayerMovement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         currentPlanet = testPlanet.GetComponent<AstronomicalBody>();
+
+        //TEST HARDCODED
+        transform.parent = testPlanet;
     }
 
     private void OnMovement(InputValue value)
@@ -69,19 +75,21 @@ public class PlayerMovement : MonoBehaviour
         Vector3 gravUp = (transform.position - testPlanet.position).normalized;
         Vector3 playerUp = transform.up;
         Quaternion targetRot = Quaternion.FromToRotation(playerUp, gravUp) * transform.rotation;
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, gravRotateSpeed * Time.deltaTime);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, gravRotateSpeed * Time.deltaTime);
+        transform.rotation = targetRot;
 
         isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, groundMask);
 
         if (isGrounded && !justJumped)
         {
-            velocity = -2f * transform.up;
+            velocity = -2f * gravUp;
         }
         else
         {
-            velocity += gravity * Time.deltaTime * gravUp;
-            controller.Move(velocity * Time.deltaTime);
+            velocity += gravity * 500f * Time.deltaTime * gravUp;
         }
+
+        rb.velocity = velocity * Time.deltaTime;
 
         /**
         velocity.y += gravity * Time.deltaTime;
@@ -92,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
         {
             //float targetAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg + cameraY.eulerAngles.y;
             Vector3 moveDir = new Vector3(direction.x, 0f, direction.z);
-            controller.Move(speed * Time.deltaTime * cameraY.TransformDirection(moveDir));
+            rb.velocity += speed * 500f * Time.deltaTime * cameraY.TransformDirection(moveDir);
 
             /**
             Vector3 dirNorm = direction.normalized;
@@ -104,7 +112,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        controller.Move(currentPlanet.velocity);
+        /*float distance = Vector3.Distance(currentPlanet.transform.position, transform.position);
+        float accel = (PhysicalLaw.instance.gravConst * currentPlanet.mass) / (distance * distance);
+        Vector3 dir = (currentPlanet.transform.position - transform.position).normalized;
+        rb.velocity = dir * accel / 30f;*/
     }
 
     private void Jump()
@@ -113,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded)
         {
             StartCoroutine(JustJumped());
-            velocity = transform.up * jumpHeight;
+            velocity = transform.up * jumpHeight * 500f;
         }
     }
 
@@ -126,13 +137,31 @@ public class PlayerMovement : MonoBehaviour
         justJumped = false;
     }
 
+    private void EnterShip()
+    {
+        controls.Player.Disable();
+        spaceship.GetComponent<ShipMovement>().enabled = true;
+        GetComponent<PlayerInput>().enabled = false;
+        spaceship.GetComponent<PlayerInput>().enabled = true;
+        cam.GetComponent<Camera>().enabled = false;
+        GetComponent<MouseLook>().enabled = false;
+        spaceship.GetComponent<MouseLook>().enabled = true;
+        gameObject.SetActive(false);
+        enabled = false;
+    }
+
     private void OnEnable()
     {
+        controls.Spaceship.Disable();
         controls.Player.Enable();
+
+        cam.GetComponent<Camera>().enabled = true;
+        GetComponent<MouseLook>().enabled = true;
     }
 
     private void OnDisable()
     {
         controls.Player.Disable();
+        controls.Spaceship.Enable();
     }
 }

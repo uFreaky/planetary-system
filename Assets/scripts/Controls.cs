@@ -53,6 +53,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""EnterShip"",
+                    ""type"": ""Button"",
+                    ""id"": ""3fe54207-268e-43c2-b9fa-ceffcd552ba4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -123,57 +132,242 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""Look"",
-                    ""id"": ""8277eee8-a4f8-4522-82d5-2c27ac089a2a"",
-                    ""path"": ""2DVector(mode=2)"",
+                    ""name"": """",
+                    ""id"": ""258bcfe7-e5e9-4310-98d3-e571d3c4f482"",
+                    ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fc13d07b-448e-4157-bdc5-be761387a1d7"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EnterShip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Spaceship"",
+            ""id"": ""aa0b0552-7562-4795-af32-6daa851c4690"",
+            ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Value"",
+                    ""id"": ""3cb65945-f344-42c8-bb7e-78f2347baafc"",
+                    ""expectedControlType"": ""Vector3"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""VerticalThrusters"",
+                    ""type"": ""Button"",
+                    ""id"": ""25f3f5cb-5734-4886-bcfb-6ecc590e7ffd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""19534913-be49-4388-9cb7-3083522a1a4e"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Tilt"",
+                    ""type"": ""Value"",
+                    ""id"": ""06fcba7a-0467-4602-98cb-1b96600f8ee1"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ExitShip"",
+                    ""type"": ""Button"",
+                    ""id"": ""2038d829-110a-4e7d-a18b-b7a550386d8e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""Move"",
+                    ""id"": ""6bcb6acf-4695-4c6f-806c-4eb953c2ff0e"",
+                    ""path"": ""3DVector(mode=2)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""up"",
-                    ""id"": ""b4ef93c6-eb26-4e4a-9231-f9704bbe950f"",
-                    ""path"": ""<Mouse>/delta/up"",
+                    ""name"": ""Up"",
+                    ""id"": ""07458495-0c69-4d78-9eda-6f958e8b3088"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Down"",
+                    ""id"": ""815597ee-6fca-4c3d-bff5-125e07a0c6b0"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Left"",
+                    ""id"": ""f59b7e52-928c-4688-ba7a-e44211355e7c"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Right"",
+                    ""id"": ""d02f4fcc-6c57-45a5-aaa2-d0b9125a3ac4"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Forward"",
+                    ""id"": ""3d644a66-3de7-4078-9bd4-c7ac2278b78f"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Backward"",
+                    ""id"": ""8ae6fe23-8bba-42b9-bde5-a247ceed5207"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c3fad42e-3df3-4a1d-b8b4-2d8c7fb15c18"",
+                    ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Look"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
+                    ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""down"",
-                    ""id"": ""865fbb58-cf90-4cc6-a398-50a1dec27e79"",
-                    ""path"": ""<Mouse>/delta/down"",
+                    ""name"": ""Vertical"",
+                    ""id"": ""41525592-6ccd-4947-b73c-f4b496d1dd7c"",
+                    ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Look"",
+                    ""action"": ""VerticalThrusters"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""faf6f585-5b58-42db-bbe7-a3cb228b36ac"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VerticalThrusters"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""left"",
-                    ""id"": ""3399c828-84d1-466a-9277-20dd4f710473"",
-                    ""path"": ""<Mouse>/delta/left"",
+                    ""name"": ""positive"",
+                    ""id"": ""39049fa0-5d12-4cb5-b322-402f5809bc1c"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Look"",
+                    ""action"": ""VerticalThrusters"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""right"",
-                    ""id"": ""7bb2ccfa-1e95-43ef-8d42-df996a8ce7ad"",
-                    ""path"": ""<Mouse>/delta/right"",
+                    ""name"": """",
+                    ""id"": ""07e511fb-2831-44b5-86b4-42e510e63bfd"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Look"",
+                    ""action"": ""ExitShip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Tilt"",
+                    ""id"": ""4e4befbb-ae64-4558-830b-a08f3e51b7a5"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Tilt"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""7d80a3c2-9d17-46b2-bd54-0f1ebdeb1840"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Tilt"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""25b4e30b-41c3-47bc-850a-ac107b833abb"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Tilt"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 }
@@ -187,6 +381,14 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
+        m_Player_EnterShip = m_Player.FindAction("EnterShip", throwIfNotFound: true);
+        // Spaceship
+        m_Spaceship = asset.FindActionMap("Spaceship", throwIfNotFound: true);
+        m_Spaceship_Movement = m_Spaceship.FindAction("Movement", throwIfNotFound: true);
+        m_Spaceship_VerticalThrusters = m_Spaceship.FindAction("VerticalThrusters", throwIfNotFound: true);
+        m_Spaceship_Look = m_Spaceship.FindAction("Look", throwIfNotFound: true);
+        m_Spaceship_Tilt = m_Spaceship.FindAction("Tilt", throwIfNotFound: true);
+        m_Spaceship_ExitShip = m_Spaceship.FindAction("ExitShip", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -251,6 +453,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Look;
+    private readonly InputAction m_Player_EnterShip;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -258,6 +461,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Look => m_Wrapper.m_Player_Look;
+        public InputAction @EnterShip => m_Wrapper.m_Player_EnterShip;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -276,6 +480,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
+            @EnterShip.started += instance.OnEnterShip;
+            @EnterShip.performed += instance.OnEnterShip;
+            @EnterShip.canceled += instance.OnEnterShip;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -289,6 +496,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
+            @EnterShip.started -= instance.OnEnterShip;
+            @EnterShip.performed -= instance.OnEnterShip;
+            @EnterShip.canceled -= instance.OnEnterShip;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -306,10 +516,97 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Spaceship
+    private readonly InputActionMap m_Spaceship;
+    private List<ISpaceshipActions> m_SpaceshipActionsCallbackInterfaces = new List<ISpaceshipActions>();
+    private readonly InputAction m_Spaceship_Movement;
+    private readonly InputAction m_Spaceship_VerticalThrusters;
+    private readonly InputAction m_Spaceship_Look;
+    private readonly InputAction m_Spaceship_Tilt;
+    private readonly InputAction m_Spaceship_ExitShip;
+    public struct SpaceshipActions
+    {
+        private @Controls m_Wrapper;
+        public SpaceshipActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Movement => m_Wrapper.m_Spaceship_Movement;
+        public InputAction @VerticalThrusters => m_Wrapper.m_Spaceship_VerticalThrusters;
+        public InputAction @Look => m_Wrapper.m_Spaceship_Look;
+        public InputAction @Tilt => m_Wrapper.m_Spaceship_Tilt;
+        public InputAction @ExitShip => m_Wrapper.m_Spaceship_ExitShip;
+        public InputActionMap Get() { return m_Wrapper.m_Spaceship; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(SpaceshipActions set) { return set.Get(); }
+        public void AddCallbacks(ISpaceshipActions instance)
+        {
+            if (instance == null || m_Wrapper.m_SpaceshipActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_SpaceshipActionsCallbackInterfaces.Add(instance);
+            @Movement.started += instance.OnMovement;
+            @Movement.performed += instance.OnMovement;
+            @Movement.canceled += instance.OnMovement;
+            @VerticalThrusters.started += instance.OnVerticalThrusters;
+            @VerticalThrusters.performed += instance.OnVerticalThrusters;
+            @VerticalThrusters.canceled += instance.OnVerticalThrusters;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
+            @Tilt.started += instance.OnTilt;
+            @Tilt.performed += instance.OnTilt;
+            @Tilt.canceled += instance.OnTilt;
+            @ExitShip.started += instance.OnExitShip;
+            @ExitShip.performed += instance.OnExitShip;
+            @ExitShip.canceled += instance.OnExitShip;
+        }
+
+        private void UnregisterCallbacks(ISpaceshipActions instance)
+        {
+            @Movement.started -= instance.OnMovement;
+            @Movement.performed -= instance.OnMovement;
+            @Movement.canceled -= instance.OnMovement;
+            @VerticalThrusters.started -= instance.OnVerticalThrusters;
+            @VerticalThrusters.performed -= instance.OnVerticalThrusters;
+            @VerticalThrusters.canceled -= instance.OnVerticalThrusters;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
+            @Tilt.started -= instance.OnTilt;
+            @Tilt.performed -= instance.OnTilt;
+            @Tilt.canceled -= instance.OnTilt;
+            @ExitShip.started -= instance.OnExitShip;
+            @ExitShip.performed -= instance.OnExitShip;
+            @ExitShip.canceled -= instance.OnExitShip;
+        }
+
+        public void RemoveCallbacks(ISpaceshipActions instance)
+        {
+            if (m_Wrapper.m_SpaceshipActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ISpaceshipActions instance)
+        {
+            foreach (var item in m_Wrapper.m_SpaceshipActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_SpaceshipActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public SpaceshipActions @Spaceship => new SpaceshipActions(this);
     public interface IPlayerActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnEnterShip(InputAction.CallbackContext context);
+    }
+    public interface ISpaceshipActions
+    {
+        void OnMovement(InputAction.CallbackContext context);
+        void OnVerticalThrusters(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
+        void OnTilt(InputAction.CallbackContext context);
+        void OnExitShip(InputAction.CallbackContext context);
     }
 }
