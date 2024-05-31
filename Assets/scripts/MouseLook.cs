@@ -50,12 +50,15 @@ public class MouseLook : MonoBehaviour
         {
             if (isShip)
             {
+                /**
                 Quaternion xRot = Quaternion.Euler(mouseSens * mouseY * Time.deltaTime * new Vector3(-1f, 0f, 0f));
                 Quaternion yRot = Quaternion.Euler(mouseSens * mouseX * Time.deltaTime * new Vector3(0f, 1f, 0f));
                 Quaternion zRot = Quaternion.Euler(mouseSens * tiltZ * Time.deltaTime * new Vector3(0f, 0f, -1f));
                 rb.MoveRotation(rb.rotation * xRot);
                 rb.MoveRotation(rb.rotation * yRot);
-                rb.MoveRotation(rb.rotation * zRot);
+                rb.MoveRotation(rb.rotation * zRot);*/
+                Quaternion rot = Quaternion.Euler(mouseSens * Time.deltaTime * new Vector3(-mouseY, mouseX, -tiltZ));
+                rb.MoveRotation(rb.rotation * rot);
             }
             else
             {
