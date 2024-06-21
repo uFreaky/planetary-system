@@ -31,10 +31,6 @@ public class StarCreatorWindow : EditorWindow
         if (GUILayout.Button("Create Starfield"))
         {
             CreateStarfield();
-
-            //GameObject starObj = Instantiate((GameObject)Resources.Load("PlanetarySystem/Star"));
-            //starObj.transform.Rotate(new Vector3(100f, 100f, 100f), Space.Self);
-            //starObj.transform.eulerAngles = new Vector3(359f, 359f, 0f);
         }
     }
 

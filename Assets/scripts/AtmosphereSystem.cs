@@ -53,22 +53,14 @@ public class AtmosphereSystem : MonoBehaviour
     private void Start()
     {
         skyboxMat = RenderSettings.skybox;
-        //cam = Camera.main.transform;
-
-        //test
-        //SunState = 0.83f;
 
         StartCoroutine(UpdateHorizonState());
-
-        //StartCoroutine(ChangeSomeValue(0f, 1f, 60f));
-        Debug.Log(transform.up);
     }
 
     private void Update()
     {
         skyboxMat.SetFloat("_xAxisOffset", -cam.localEulerAngles.x);
-        //skyboxMat.SetFloat("_yAxisOffset", -cam.localEulerAngles.y);
-        UpdateSunOffset2();
+        UpdateSunOffset();
     }
 
     private IEnumerator UpdateHorizonState()
@@ -148,6 +140,16 @@ public class AtmosphereSystem : MonoBehaviour
     private void UpdateSunOffset()
     {
         Vector3 sunDir = sun.position - player.position;
+
+        Vector3 projectionSunDir = Vector3.ProjectOnPlane(sunDir, player.up);
+        float sunAngle = Vector3.SignedAngle(projectionSunDir, cam.parent.forward, player.up);
+
+        skyboxMat.SetFloat("_sunOffset", -sunAngle + 90f);
+    }
+
+    private void UpdateSunOffsetDeprecated()
+    {
+        Vector3 sunDir = sun.position - player.position;
         sunDir.x = 0f;
         //float sunAngle = Vector3.Angle(sunDir, universe.forward);
         //check later if cam.parent.forward is still correct way to do this
@@ -155,22 +157,6 @@ public class AtmosphereSystem : MonoBehaviour
 
         Debug.Log("SUNANGLE: " + sunAngle + " : " + LeftRightCheck(player.forward, sunDir, player.up));
         Debug.Log("SunDir: " + sunDir);
-
-        skyboxMat.SetFloat("_sunOffset", -sunAngle + 90f);
-    }
-
-    private void UpdateSunOffset2()
-    {
-        Vector3 sunDir = sun.position - player.position;
-
-        Vector3 projectionSunDir = Vector3.ProjectOnPlane(sunDir, player.up);
-
-        //float sunAngle = Vector3.Angle(sunDir, universe.forward);
-        //check later if cam.parent.forward is still correct way to do this
-        float sunAngle = Vector3.SignedAngle(projectionSunDir, cam.parent.forward, player.up);
-
-        Debug.Log("SUNANGLE: " + sunAngle + " : " + LeftRightCheck(player.forward, sunDir, player.up));
-        Debug.Log("SunDir: " + projectionSunDir);
 
         skyboxMat.SetFloat("_sunOffset", -sunAngle + 90f);
     }
