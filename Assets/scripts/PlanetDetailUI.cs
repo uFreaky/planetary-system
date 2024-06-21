@@ -32,8 +32,8 @@ public class PlanetDetailUI : MonoBehaviour
 
             AstronomicalBody body = hit.transform.GetComponent<AstronomicalBody>();
             nameText.text = "Name: " + body.name;
-            distText.text = (int)Vector2.Distance(hit.transform.position, cam.transform.position) + "m";
-            if ((int)body.velocity.magnitude != 0)
+            distText.text = (int)Vector3.Distance(hit.transform.position, cam.transform.position) + "m";
+            if (body.velocity.magnitude >= 1)
             {
                 veloText.text = (int)body.velocity.magnitude + "m/s";
             }

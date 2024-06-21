@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     private Controls controls;
 
     //input direction
-    private Vector3 direction;
+    private Vector2 direction;
 
     private void Awake()
     {
@@ -59,23 +59,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnMovement(InputValue value)
     {
-        Debug.Log("oh brother");
-        Vector2 dirVector2 = value.Get<Vector2>();
-        direction = new Vector3(dirVector2.x, 0f, dirVector2.y).normalized;
+        direction = value.Get<Vector2>().normalized;
     }
 
     private void Update()
     {
-        //Vector3 direction = (testPlanet.transform.position - transform.position).normalized;
-        //transform.rotation = Quaternion.Euler(direction);
-        //Debug.Log(Quaternion.Euler(direction));
-        //transform.LookAt(testPlanet.position);
-        //transform.Rotate(new Vector3(-90f, 0f, 0f));
-
         Vector3 gravUp = (transform.position - testPlanet.position).normalized;
         Vector3 playerUp = transform.up;
         Quaternion targetRot = Quaternion.FromToRotation(playerUp, gravUp) * transform.rotation;
-        //transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, gravRotateSpeed * Time.deltaTime);
         transform.rotation = targetRot;
 
         isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, groundMask);
@@ -91,22 +82,10 @@ public class PlayerMovement : MonoBehaviour
 
         rb.velocity = velocity * Time.deltaTime;
 
-        /**
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
-        Debug.Log(velocity);**/
-
         if (direction.magnitude >= 0.1f)
         {
-            //float targetAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg + cameraY.eulerAngles.y;
-            Vector3 moveDir = new Vector3(direction.x, 0f, direction.z);
+            Vector3 moveDir = new Vector3(direction.x, 0f, direction.y);
             rb.velocity += speed * 500f * Time.deltaTime * cameraY.TransformDirection(moveDir);
-
-            /**
-            Vector3 dirNorm = direction.normalized;
-            Vector3 testVector = dirNorm.x * transform.forward + 1f * transform.up + dirNorm.z * transform.right;
-            Debug.Log(transform.forward);
-            controller.Move(testVector *  Time.deltaTime);**/
         }
     }
 
@@ -124,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded)
         {
             StartCoroutine(JustJumped());
-            velocity = transform.up * jumpHeight * 500f;
+            velocity = 500f * jumpHeight * transform.up;
         }
     }
 
@@ -144,9 +123,10 @@ public class PlayerMovement : MonoBehaviour
         GetComponent<PlayerInput>().enabled = false;
         spaceship.GetComponent<PlayerInput>().enabled = true;
         cam.GetComponent<Camera>().enabled = false;
-        GetComponent<MouseLook>().enabled = false;
+        GetComponentInChildren<MouseLook>().enabled = false;
         spaceship.GetComponent<MouseLook>().enabled = true;
         gameObject.SetActive(false);
+        PlanetarySystem.instance.GetComponent<UniverseOriginSetter>().player = spaceship.GetComponent<Rigidbody>();
         enabled = false;
     }
 
@@ -156,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
         controls.Player.Enable();
 
         cam.GetComponent<Camera>().enabled = true;
-        GetComponent<MouseLook>().enabled = true;
+        GetComponentInChildren<MouseLook>().enabled = true;
     }
 
     private void OnDisable()

@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 6720801038067328090}
   - component: {fileID: 1099999090900342272}
   - component: {fileID: 3407417082907460815}
+  - component: {fileID: 2169949844047308391}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -169,6 +170,22 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &2169949844047308391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087900378913515370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cfd1365786a86148a7100cd44bb77c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseSens: 200
+  cameraY: {fileID: 8444717225046989806}
+  cam: {fileID: 910410218161570836}
+  isShip: 0
 --- !u!1 &1621288382410911884
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,9 +199,9 @@ GameObject:
   - component: {fileID: 1034042643050596738}
   - component: {fileID: 1834814284534270951}
   - component: {fileID: 1811171897420838529}
-  - component: {fileID: 659209587257818128}
-  - component: {fileID: 937673567618698408}
+  - component: {fileID: 4673257714497944037}
   - component: {fileID: 6769874338715584987}
+  - component: {fileID: 937673567618698408}
   m_Layer: 0
   m_Name: prf_Player
   m_TagString: Untagged
@@ -224,7 +241,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1621288382410911884}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -307,7 +324,8 @@ MonoBehaviour:
   isGrounded: 0
   jumpHeight: 10
   jumpCooldown: 0.5
---- !u!114 &659209587257818128
+  spaceship: {fileID: 0}
+--- !u!114 &4673257714497944037
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -316,12 +334,45 @@ MonoBehaviour:
   m_GameObject: {fileID: 1621288382410911884}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cfd1365786a86148a7100cd44bb77c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f703c69a7cdd884593f502e11902dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSens: 200
-  cameraY: {fileID: 8444717225046989806}
-  cam: {fileID: 910410218161570836}
+  cam: {fileID: 6720801038067328090}
+  astroBodyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  detailUiRect: {fileID: 0}
+  nameText: {fileID: 0}
+  distText: {fileID: 0}
+  veloText: {fileID: 0}
+  canvas: {fileID: 0}
+--- !u!54 &6769874338715584987
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621288382410911884}
+  serializedVersion: 4
+  m_Mass: 80
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 1
 --- !u!114 &937673567618698408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,33 +404,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!54 &6769874338715584987
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1621288382410911884}
-  serializedVersion: 4
-  m_Mass: 80
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 0
-  m_CollisionDetection: 1
 --- !u!1 &3912797899668967623
 GameObject:
   m_ObjectHideFlags: 0

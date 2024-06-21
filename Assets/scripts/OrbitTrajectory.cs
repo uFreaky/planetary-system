@@ -9,8 +9,6 @@ public class OrbitTrajectory : MonoBehaviour
     [SerializeField] private bool showOrbits = true;
     [SerializeField] private Color color = Color.black;
 
-    private Vector3 lastPosition;
-
     private AstronomicalBody[] ghostBodies;
 
     [SerializeField] private float framesPerSecond = 30f;
@@ -32,6 +30,10 @@ public class OrbitTrajectory : MonoBehaviour
         if (!Application.isPlaying && showOrbits)
         {
             DrawTrajectories();
+        }
+        else
+        {
+            DeleteGhostBodies();
         }
     }
 
@@ -57,6 +59,8 @@ public class OrbitTrajectory : MonoBehaviour
 
             LineRenderer lineRenderer = ghostBody.GetComponent<LineRenderer>();
             lineRenderer.enabled = true;
+            lineRenderer.startColor = color;
+            lineRenderer.endColor = color;
             lineRenderer.positionCount = stepsToDraw;
         }
 

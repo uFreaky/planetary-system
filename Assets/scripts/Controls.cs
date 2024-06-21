@@ -71,7 +71,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard + Mouse"",
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -93,7 +93,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard + Mouse"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -104,7 +104,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard + Mouse"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -115,7 +115,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard + Mouse"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -126,7 +126,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard + Mouse"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -148,7 +148,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard + Mouse"",
                     ""action"": ""EnterShip"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -167,15 +167,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""VerticalThrusters"",
-                    ""type"": ""Button"",
-                    ""id"": ""25f3f5cb-5734-4886-bcfb-6ecc590e7ffd"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""Look"",
@@ -295,39 +286,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""Vertical"",
-                    ""id"": ""41525592-6ccd-4947-b73c-f4b496d1dd7c"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""VerticalThrusters"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""faf6f585-5b58-42db-bbe7-a3cb228b36ac"",
-                    ""path"": ""<Keyboard>/leftCtrl"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""VerticalThrusters"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""39049fa0-5d12-4cb5-b322-402f5809bc1c"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""VerticalThrusters"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": """",
                     ""id"": ""07e511fb-2831-44b5-86b4-42e510e63bfd"",
                     ""path"": ""<Keyboard>/f"",
@@ -374,7 +332,24 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""Keyboard + Mouse"",
+            ""bindingGroup"": ""Keyboard + Mouse"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": true,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": true,
+                    ""isOR"": false
+                }
+            ]
+        }
+    ]
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
@@ -385,7 +360,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         // Spaceship
         m_Spaceship = asset.FindActionMap("Spaceship", throwIfNotFound: true);
         m_Spaceship_Movement = m_Spaceship.FindAction("Movement", throwIfNotFound: true);
-        m_Spaceship_VerticalThrusters = m_Spaceship.FindAction("VerticalThrusters", throwIfNotFound: true);
         m_Spaceship_Look = m_Spaceship.FindAction("Look", throwIfNotFound: true);
         m_Spaceship_Tilt = m_Spaceship.FindAction("Tilt", throwIfNotFound: true);
         m_Spaceship_ExitShip = m_Spaceship.FindAction("ExitShip", throwIfNotFound: true);
@@ -521,7 +495,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Spaceship;
     private List<ISpaceshipActions> m_SpaceshipActionsCallbackInterfaces = new List<ISpaceshipActions>();
     private readonly InputAction m_Spaceship_Movement;
-    private readonly InputAction m_Spaceship_VerticalThrusters;
     private readonly InputAction m_Spaceship_Look;
     private readonly InputAction m_Spaceship_Tilt;
     private readonly InputAction m_Spaceship_ExitShip;
@@ -530,7 +503,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         private @Controls m_Wrapper;
         public SpaceshipActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Spaceship_Movement;
-        public InputAction @VerticalThrusters => m_Wrapper.m_Spaceship_VerticalThrusters;
         public InputAction @Look => m_Wrapper.m_Spaceship_Look;
         public InputAction @Tilt => m_Wrapper.m_Spaceship_Tilt;
         public InputAction @ExitShip => m_Wrapper.m_Spaceship_ExitShip;
@@ -546,9 +518,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
-            @VerticalThrusters.started += instance.OnVerticalThrusters;
-            @VerticalThrusters.performed += instance.OnVerticalThrusters;
-            @VerticalThrusters.canceled += instance.OnVerticalThrusters;
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
@@ -565,9 +534,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
-            @VerticalThrusters.started -= instance.OnVerticalThrusters;
-            @VerticalThrusters.performed -= instance.OnVerticalThrusters;
-            @VerticalThrusters.canceled -= instance.OnVerticalThrusters;
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
@@ -594,6 +560,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         }
     }
     public SpaceshipActions @Spaceship => new SpaceshipActions(this);
+    private int m_KeyboardMouseSchemeIndex = -1;
+    public InputControlScheme KeyboardMouseScheme
+    {
+        get
+        {
+            if (m_KeyboardMouseSchemeIndex == -1) m_KeyboardMouseSchemeIndex = asset.FindControlSchemeIndex("Keyboard + Mouse");
+            return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
+        }
+    }
     public interface IPlayerActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -604,7 +579,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     public interface ISpaceshipActions
     {
         void OnMovement(InputAction.CallbackContext context);
-        void OnVerticalThrusters(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnTilt(InputAction.CallbackContext context);
         void OnExitShip(InputAction.CallbackContext context);

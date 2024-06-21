@@ -50,8 +50,9 @@ public class ShipMovement : MonoBehaviour
         player.gameObject.SetActive(true);
         player.GetComponent<PlayerInput>().enabled = true;
         player.GetComponent<PlayerMovement>().enabled = true;
-        player.GetComponent<MouseLook>().enabled = true;
+        player.GetComponentInChildren<MouseLook>().enabled = true;
         GetComponent<MouseLook>().enabled = false;
+        PlanetarySystem.instance.GetComponent<UniverseOriginSetter>().player = player.GetComponent<Rigidbody>();
 
         enabled = false;
     }

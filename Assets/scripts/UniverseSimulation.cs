@@ -31,17 +31,8 @@ public class UniverseSimulation : MonoBehaviour
                         float distance = Vector3.Distance(otherBody.transform.position, body.transform.position);
                         float acceleration = (PhysicalLaw.instance.gravConst * otherBody.mass) / (distance * distance);
                         Vector3 direction = (otherBody.transform.position - body.transform.position).normalized;
+
                         body.velocity += (direction * acceleration) / framesPerSecond;
-
-                        Debug.Log("--- " + body.gameObject.name + ":");
-                        Debug.Log("accel: " + (PhysicalLaw.instance.gravConst * otherBody.mass) / (distance * distance));
-
-                        Debug.Log("dist: " + Vector3.Distance(otherBody.transform.position, body.transform.position));
-                        Debug.Log("dir: " + direction);
-                        Vector3 tempVelo = direction * acceleration;
-                        Debug.Log("velocity: " + tempVelo);
-                        Debug.Log("velocity schritt: " + body.velocity);
-
                         body.transform.position += body.velocity;
                     }
                 }
