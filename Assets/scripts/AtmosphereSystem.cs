@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class AtmosphereSystem : MonoBehaviour
 {
@@ -12,7 +13,8 @@ public class AtmosphereSystem : MonoBehaviour
 
     [SerializeField] private Transform player;
     [SerializeField] private Transform sun;
-    [SerializeField] private Transform cam;
+    [SerializeField] private Transform playerCam;
+    [SerializeField] private Transform shipCam;
     [SerializeField] private float sunUpAngle = 118f;
     [SerializeField] private float sunDownAngle = 61f;
     [SerializeField] private Vector3 skyboxSunDir = new(-1f, 0f, 0f);
@@ -21,6 +23,8 @@ public class AtmosphereSystem : MonoBehaviour
 
     private Material skyboxMat;
     [SerializeField] private Material starMat;
+    [SerializeField] private Material astroMat;
+    [SerializeField] private Material sunMat;
 
     [SerializeField] private float heightState1 = 0f;
     [SerializeField] private float heightState2 = 0.035f;
@@ -54,12 +58,17 @@ public class AtmosphereSystem : MonoBehaviour
     {
         skyboxMat = RenderSettings.skybox;
 
+        starMat.renderQueue = 4000;
+        skyboxMat.renderQueue = 4001;
+        astroMat.renderQueue = 0;
+        sunMat.renderQueue = 0;
+
         StartCoroutine(UpdateHorizonState());
     }
 
     private void Update()
     {
-        skyboxMat.SetFloat("_xAxisOffset", -cam.localEulerAngles.x);
+        skyboxMat.SetFloat("_xAxisOffset", -playerCam.localEulerAngles.x);
         UpdateSunOffset();
     }
 
@@ -140,10 +149,16 @@ public class AtmosphereSystem : MonoBehaviour
     private void UpdateSunOffset()
     {
         Vector3 sunDir = sun.position - player.position;
-
         Vector3 projectionSunDir = Vector3.ProjectOnPlane(sunDir, player.up);
-        float sunAngle = Vector3.SignedAngle(projectionSunDir, cam.parent.forward, player.up);
-
+        float sunAngle;
+        if (player.gameObject.activeSelf)
+        {
+            sunAngle = Vector3.SignedAngle(projectionSunDir, playerCam.parent.forward, player.up);
+        }
+        else
+        {
+            sunAngle = Vector3.SignedAngle(projectionSunDir, shipCam.parent.forward, player.up);
+        }
         skyboxMat.SetFloat("_sunOffset", -sunAngle + 90f);
     }
 
@@ -153,7 +168,7 @@ public class AtmosphereSystem : MonoBehaviour
         sunDir.x = 0f;
         //float sunAngle = Vector3.Angle(sunDir, universe.forward);
         //check later if cam.parent.forward is still correct way to do this
-        float sunAngle = Vector3.SignedAngle(sunDir, cam.parent.forward, player.up);
+        float sunAngle = Vector3.SignedAngle(sunDir, playerCam.parent.forward, player.up);
 
         Debug.Log("SUNANGLE: " + sunAngle + " : " + LeftRightCheck(player.forward, sunDir, player.up));
         Debug.Log("SunDir: " + sunDir);

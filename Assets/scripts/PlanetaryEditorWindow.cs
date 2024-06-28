@@ -2,6 +2,7 @@ using System.Diagnostics.Tracing;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 public class PlanetaryEditorWindow : EditorWindow
 {
     private PlanetarySystem currentPlanetarySystem = null;
@@ -282,3 +283,4 @@ public class PlanetaryEditorWindow : EditorWindow
         
     }
 }
+#endif

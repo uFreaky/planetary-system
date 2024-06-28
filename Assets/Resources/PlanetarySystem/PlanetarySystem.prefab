@@ -113,7 +113,8 @@ MonoBehaviour:
   sunState: 0
   player: {fileID: 0}
   sun: {fileID: 5666025135588494860}
-  cam: {fileID: 0}
+  playerCam: {fileID: 0}
+  shipCam: {fileID: 0}
   sunUpAngle: 118
   sunDownAngle: 61
   skyboxSunDir: {x: -1, y: 0, z: 0}
@@ -158,6 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  spaceship: {fileID: 0}
   starfield: {fileID: 0}
 --- !u!114 &1276360586706168125
 MonoBehaviour:
@@ -231,21 +233,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2318667600765606581, guid: 67e3571f53c1469479dedd79a3df9607,
-        type: 3}
-      propertyPath: startVelocity.x
-      value: -1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2318667600765606581, guid: 67e3571f53c1469479dedd79a3df9607,
-        type: 3}
-      propertyPath: startVelocity.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2318667600765606581, guid: 67e3571f53c1469479dedd79a3df9607,
-        type: 3}
-      propertyPath: startVelocity.z
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5889521437533987536, guid: 67e3571f53c1469479dedd79a3df9607,
         type: 3}

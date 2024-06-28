@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlanetDetailUI : MonoBehaviour
@@ -45,6 +46,15 @@ public class PlanetDetailUI : MonoBehaviour
         else
         {
             detailUiRect.gameObject.SetActive(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(0);
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            SceneManager.LoadScene(1);
         }
     }
 }

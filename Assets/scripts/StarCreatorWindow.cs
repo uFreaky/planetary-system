@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 public class StarCreatorWindow : EditorWindow
 {
     public float Density
@@ -52,3 +53,4 @@ public class StarCreatorWindow : EditorWindow
         }
     }
 }
+#endif

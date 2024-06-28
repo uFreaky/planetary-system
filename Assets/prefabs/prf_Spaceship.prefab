@@ -144,9 +144,10 @@ GameObject:
   - component: {fileID: 12948911217163524}
   - component: {fileID: 3329886883284755385}
   - component: {fileID: 2608209239096760932}
+  - component: {fileID: 4131312578303755502}
   m_Layer: 0
   m_Name: prf_Spaceship
-  m_TagString: Untagged
+  m_TagString: Spaceship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -161,10 +162,11 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.2302368, y: 253.32838, z: -66.45}
-  m_LocalScale: {x: 5, y: 3, z: 7}
+  m_LocalScale: {x: 0.024999999, y: 0.015, z: 0.035}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5710807331037936820}
+  - {fileID: 7090027147240371635}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2775170477318592032
@@ -253,7 +255,8 @@ MonoBehaviour:
   rb: {fileID: 3329886883284755385}
   cam: {fileID: 1655964179966275346}
   player: {fileID: 0}
-  speed: 6
+  playerSpawn: {fileID: 7090027147240371635}
+  speed: 20
 --- !u!114 &12948911217163524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,6 +331,58 @@ MonoBehaviour:
   m_DefaultActionMap: Spaceship
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &4131312578303755502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4786958154407362415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f703c69a7cdd884593f502e11902dda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 1655964179966275346}
+  astroBodyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  detailUiRect: {fileID: 0}
+  nameText: {fileID: 0}
+  distText: {fileID: 0}
+  veloText: {fileID: 0}
+  canvas: {fileID: 0}
+--- !u!1 &5180294834461586673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7090027147240371635}
+  m_Layer: 0
+  m_Name: playerSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7090027147240371635
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5180294834461586673}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.875, y: -0.159, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6628340472493541367}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8321473868607050713
 GameObject:
   m_ObjectHideFlags: 0

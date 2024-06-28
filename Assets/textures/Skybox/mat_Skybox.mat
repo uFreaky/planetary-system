@@ -30,7 +30,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
@@ -114,13 +114,14 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _HorizonHeight: 1.7
-    - _HorizonReach: 0
+    - _HorizonReach: 0.03848377
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _SkyOpacity: 0.99732304
     - _SkyStrength: -1.33
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
@@ -131,19 +132,19 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _sunOffset: -15.788727
-    - _xAxisOffset: -32.70194
+    - _sunOffset: 48.74825
+    - _xAxisOffset: -283.63577
     - _yAxisOffset: -347.09915
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _BotColor: {r: 0.3137255, g: 0.6862745, b: 0.89411765, a: 1}
+    - _BotColor: {r: 0.42855346, g: 0.6980854, b: 0.7445132, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MidColor2: {r: 0.3137255, g: 0.6862745, b: 0.89411765, a: 1}
+    - _MidColor2: {r: 0.30480173, g: 0.66675377, b: 0.8686849, a: 1}
     - _MidColorSun: {r: 1, g: 0.7568628, b: 0, a: 1}
     - _MidColorSun2: {r: 1, g: 0, b: 0.31488848, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _StarTilling: {r: 1, g: 1, b: 0, a: 0}
     - _TestVec: {r: 1, g: 252.95, b: 1, a: 0}
-    - _TopColor: {r: 0.3137255, g: 0.6862745, b: 0.89411765, a: 1}
+    - _TopColor: {r: 0.30480173, g: 0.66675377, b: 0.8686849, a: 1}
   m_BuildTextureStacks: []

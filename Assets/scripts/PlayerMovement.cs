@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private AstronomicalBody currentPlanet;
 
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private Rigidbody shipRb;
 
     [SerializeField] private Transform cam;
     [SerializeField] private Transform cameraY;
@@ -55,6 +57,8 @@ public class PlayerMovement : MonoBehaviour
 
         //TEST HARDCODED
         transform.parent = testPlanet;
+
+        Destroy(spaceship.GetComponent<Rigidbody>());
     }
 
     private void OnMovement(InputValue value)
@@ -126,7 +130,10 @@ public class PlayerMovement : MonoBehaviour
         GetComponentInChildren<MouseLook>().enabled = false;
         spaceship.GetComponent<MouseLook>().enabled = true;
         gameObject.SetActive(false);
-        PlanetarySystem.instance.GetComponent<UniverseOriginSetter>().player = spaceship.GetComponent<Rigidbody>();
+        spaceship.GetComponent<PlanetDetailUI>().enabled = true;
+        spaceship.GetComponent<ShipMovement>().rb = spaceship.AddComponent<Rigidbody>();
+        spaceship.GetComponent<ShipMovement>().rb.mass = 2000f;
+        PlanetarySystem.instance.GetComponent<UniverseOriginSetter>().shipRb = spaceship.GetComponent<ShipMovement>().rb;
         enabled = false;
     }
 

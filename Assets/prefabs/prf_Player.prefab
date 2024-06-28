@@ -99,7 +99,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 5000
+  far clip plane: 30000
   field of view: 40
   orthographic: 0
   orthographic size: 10
@@ -199,7 +199,6 @@ GameObject:
   - component: {fileID: 1034042643050596738}
   - component: {fileID: 1834814284534270951}
   - component: {fileID: 1811171897420838529}
-  - component: {fileID: 4673257714497944037}
   - component: {fileID: 6769874338715584987}
   - component: {fileID: 937673567618698408}
   m_Layer: 0
@@ -325,27 +324,6 @@ MonoBehaviour:
   jumpHeight: 10
   jumpCooldown: 0.5
   spaceship: {fileID: 0}
---- !u!114 &4673257714497944037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1621288382410911884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f703c69a7cdd884593f502e11902dda, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 6720801038067328090}
-  astroBodyLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  detailUiRect: {fileID: 0}
-  nameText: {fileID: 0}
-  distText: {fileID: 0}
-  veloText: {fileID: 0}
-  canvas: {fileID: 0}
 --- !u!54 &6769874338715584987
 Rigidbody:
   m_ObjectHideFlags: 0
